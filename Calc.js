@@ -54,21 +54,22 @@ keys.addEventListener('click', e => {
       const firstValue = calculator.dataset.firstValue
       const operator = calculator.dataset.operator
       const secondValue = displayText
-      const calculate = (firstValue, operator, secondValue => {
+      const calculate = (firstValue, operator, secondValue) => {
       let result = ''
       
+        
       if (operator === 'add') {
         result = parseFloat(firstValue) + parseFloat(secondValue)
       } else if (operator === 'subtract') {
-        result = parseFloat(n1) - parseFloat(n2)
+        result = parseFloat(firstValue) - parseFloat(secondValue)
       } else if (operator === 'multiply') {
-        result = parseFloat(n1) * parseFloat(n2)
+        result = parseFloat(firstValue) * parseFloat(secondValue)
       } else if (operator === 'divide') {
-        result = parseFloat(n1) / parseFloat(n2)
+        result = parseFloat(firstValue) / parseFloat(secondValue)
       }
-       display.textContent = calculate(firstValue, operator, secondValue)
       return result
         }
-        )} 
+      display.textContent = calculate(firstValue, operator, secondValue)
       }
+  }
 })
