@@ -17,11 +17,12 @@ keys.addEventListener('click', e => {
       const previousKeyType = calculator.dataset.previousKeyType
   
         if (!action) {
-      if(displayText === '0' || previousKeyType === 'operator') {
+      if (displayText === '0' || previousKeyType === 'operator') {
         display.textContent = keyNum
       } else {
         display.textContent = displayText + keyNum
       } 
+        calculator.dataset.previousKeyType = 'number'
     }
     
     if (
@@ -33,30 +34,34 @@ keys.addEventListener('click', e => {
   key.classList.add('is-depressed')
   calculator.dataset.previousKeyType = 'operator'
   calculator.dataset.firstValue = displayText
-  calculator.dataset.operator = action
- 
+  calculator.dataset.operator = action 
+  isDecimal = false
 }
     
     if (action === 'decimal') {
-      if(!isDecimal || previousKeyType === 'operator') {
+      if(!isDecimal) {
         display.textContent = displayText + '.'
-        isDecimal = true
+      } 
+      if (previousKeyType === 'operator') {
+      display.textContent = '0.'
       }
-      
+      calculator.dataset.previousKeyType = 'decimal'
+      isDecimal = true
     }
 
     if (action === 'clear') {
       display.textContent = '0'
       isDecimal = false
+      calculator.dataset.previousKeyType = 'clear'
     }
 
     if (action === 'calculate') {
+      calculator.dataset.previousKeyType = 'calculate'
       const firstValue = calculator.dataset.firstValue
       const operator = calculator.dataset.operator
       const secondValue = displayText
       const calculate = (firstValue, operator, secondValue) => {
       let result = ''
-      
         
       if (operator === 'add') {
         result = parseFloat(firstValue) + parseFloat(secondValue)
@@ -67,7 +72,7 @@ keys.addEventListener('click', e => {
       } else if (operator === 'divide') {
         result = parseFloat(firstValue) / parseFloat(secondValue)
       }
-      return result
+      return result 
         }
       display.textContent = calculate(firstValue, operator, secondValue)
       }
