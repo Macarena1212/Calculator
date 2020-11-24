@@ -2,7 +2,7 @@ const calculator = document.querySelector('.calculator')
 const keys = calculator.querySelector('.calculator__keys')
 const display = calculator.querySelector('.calculator__display')
 var isDecimal = false
-
+var isBoolean = false
 
 keys.addEventListener('click', e => {
   if (e.target.matches('button')) {
@@ -36,8 +36,9 @@ keys.addEventListener('click', e => {
   calculator.dataset.firstValue = displayText
   calculator.dataset.operator = action 
   isDecimal = false
+  isBoolean = true
 }
-    
+
     if (action === 'decimal') {
       if(!isDecimal) {
         display.textContent = displayText + '.'
@@ -53,6 +54,7 @@ keys.addEventListener('click', e => {
       display.textContent = '0'
       isDecimal = false
       calculator.dataset.previousKeyType = 'clear'
+      isBoolean = false
     }
 
     if (action === 'calculate') {
@@ -60,6 +62,8 @@ keys.addEventListener('click', e => {
       const firstValue = calculator.dataset.firstValue
       const operator = calculator.dataset.operator
       const secondValue = displayText
+      isBoolean = false
+      
       const calculate = (firstValue, operator, secondValue) => {
       let result = ''
         
@@ -72,9 +76,12 @@ keys.addEventListener('click', e => {
       } else if (operator === 'divide') {
         result = parseFloat(firstValue) / parseFloat(secondValue)
       }
+                if (action && isBoolean) {
+      display.textContent = calculate(firstValue, operator, secondValue)
+                }
       return result 
         }
       display.textContent = calculate(firstValue, operator, secondValue)
       }
-  }
+    }
 })
