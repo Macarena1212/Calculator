@@ -4,12 +4,33 @@ const display = calculator.querySelector('.calculator__display')
 var isDecimal = false
 var isBoolean = false
 
+ const calculate = (firstValue, operator, secondValue) => {
+      let result = ''
+        
+      if (operator === 'add') {
+        result = parseFloat(firstValue) + parseFloat(secondValue)
+      } else if (operator === 'subtract') {
+        result = parseFloat(firstValue) - parseFloat(secondValue)
+      } else if (operator === 'multiply') {
+        result = parseFloat(firstValue) * parseFloat(secondValue)
+      } else if (operator === 'divide') {
+        result = parseFloat(firstValue) / parseFloat(secondValue)
+      }
+      if  (action && isBoolean){
+      display.textContent = calculate(firstValue, operator, secondValue)
+      }
+  
+      return result 
+        }
+
 keys.addEventListener('click', e => {
   if (e.target.matches('button')) {
     const key = e.target
     const action = key.dataset.action
     const displayText = display.textContent
     const keyNum = key.textContent
+    
+   
         
     Array.from(key.parentNode.children)
       .forEach(k => k.classList.remove('is-depressed'))
@@ -64,23 +85,7 @@ keys.addEventListener('click', e => {
       const secondValue = displayText
       isBoolean = false
       
-      const calculate = (firstValue, operator, secondValue) => {
-      let result = ''
-        
-      if (operator === 'add') {
-        result = parseFloat(firstValue) + parseFloat(secondValue)
-      } else if (operator === 'subtract') {
-        result = parseFloat(firstValue) - parseFloat(secondValue)
-      } else if (operator === 'multiply') {
-        result = parseFloat(firstValue) * parseFloat(secondValue)
-      } else if (operator === 'divide') {
-        result = parseFloat(firstValue) / parseFloat(secondValue)
-      }
-                if (action && isBoolean) {
-      display.textContent = calculate(firstValue, operator, secondValue)
-                }
-      return result 
-        }
+      
       display.textContent = calculate(firstValue, operator, secondValue)
       }
     }
