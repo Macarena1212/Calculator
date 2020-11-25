@@ -6,7 +6,6 @@ var isBoolean = false
 
  const calculate = (firstValue, operator, secondValue) => {
       let result = ''
-        
       if (operator === 'add') {
         result = parseFloat(firstValue) + parseFloat(secondValue)
       } else if (operator === 'subtract') {
@@ -16,10 +15,6 @@ var isBoolean = false
       } else if (operator === 'divide') {
         result = parseFloat(firstValue) / parseFloat(secondValue)
       }
-      if  (action && isBoolean){
-      display.textContent = calculate(firstValue, operator, secondValue)
-      }
-  
       return result 
         }
 
@@ -30,8 +25,6 @@ keys.addEventListener('click', e => {
     const displayText = display.textContent
     const keyNum = key.textContent
     
-   
-        
     Array.from(key.parentNode.children)
       .forEach(k => k.classList.remove('is-depressed'))
 
@@ -52,14 +45,17 @@ keys.addEventListener('click', e => {
         action === 'multiply' ||
         action === 'divide'
       ) {
+    if  (isBoolean){
+      display.textContent = calculate(calculator.dataset.firstValue, calculator.dataset.operator, displayText)
+     }
   key.classList.add('is-depressed')
   calculator.dataset.previousKeyType = 'operator'
   calculator.dataset.firstValue = displayText
   calculator.dataset.operator = action 
   isDecimal = false
   isBoolean = true
-}
-
+    }
+      
     if (action === 'decimal') {
       if(!isDecimal) {
         display.textContent = displayText + '.'
