@@ -92,7 +92,10 @@ keys.addEventListener('click', e => {
       const secondValue = displayText
       isBoolean = false
       
-     display.textContent = calculate(firstValue, operator, secondValue)
+      if (firstValue) {
+        display.textContent = calculate(firstValue, operator, secondValue)
+      }
+   
       }
     }
 })
