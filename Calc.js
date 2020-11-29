@@ -2,6 +2,7 @@ const calculator = document.querySelector('.calculator')
 const keys = calculator.querySelector('.calculator__keys')
 const display = calculator.querySelector('.calculator__display')
 var isDecimal = false
+//isBoolean es para saber si ya hay apretado un operador, es para operaciones mùltiples sin apretar calculate.
 var isBoolean = false
 
  const calculate = (firstValue, operator, secondValue) => {
@@ -45,15 +46,25 @@ keys.addEventListener('click', e => {
         action === 'multiply' ||
         action === 'divide'
       ) {
-    if  (isBoolean){
-      display.textContent = calculate(calculator.dataset.firstValue, calculator.dataset.operator, displayText)
-     }
+    if  (isBoolean) {
+      let calcValue = calculate(calculator.dataset.firstValue, calculator.dataset.operator, displayText)
+      display.textContent = calcValue
+      calculator.dataset.firstValue = calcValue
+      key.classList.add('is-depressed')
+      calculator.dataset.previousKeyType = 'operator'
+      calculator.dataset.operator = action 
+      isDecimal = false
+      isBoolean = true
+      
+    } else {
+    
   key.classList.add('is-depressed')
   calculator.dataset.previousKeyType = 'operator'
   calculator.dataset.firstValue = displayText
   calculator.dataset.operator = action 
   isDecimal = false
   isBoolean = true
+    }   
     }
       
     if (action === 'decimal') {
@@ -81,8 +92,7 @@ keys.addEventListener('click', e => {
       const secondValue = displayText
       isBoolean = false
       
-      
-      display.textContent = calculate(firstValue, operator, secondValue)
+     display.textContent = calculate(firstValue, operator, secondValue)
       }
     }
 })
