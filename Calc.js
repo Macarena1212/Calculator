@@ -81,7 +81,16 @@ keys.addEventListener('click', e => {
     }
 
     if (action === 'clear') {
+       if (key.textContent === 'AC') {
+    calculator.dataset.firstValue = ''
+    calculator.dataset.modValue = ''
+    calculator.dataset.operator = ''
+    calculator.dataset.previousKeyType = ''
+  } else {
+    key.textContent = 'AC'
+  }
       display.textContent = '0'
+      key.textContent = 'AC'
       isDecimal = false
       calculator.dataset.previousKeyType = 'clear'
       isBoolean = false
@@ -108,5 +117,9 @@ keys.addEventListener('click', e => {
       }
       calculator.dataset.modValue = secondValue
       }
+    if (action !== 'clear') {
+  const clearButton = calculator.querySelector('[data-action=clear]')
+  clearButton.textContent = 'CE'
+}
     }
 })
